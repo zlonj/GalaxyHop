@@ -26,7 +26,6 @@ class Stats : SKScene {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        print("Touched")
         let currX = pos.x
         let currY = pos.y
         if currX <= 274 && currX >= 58 && currY <= -382 && currY >= -598 {
