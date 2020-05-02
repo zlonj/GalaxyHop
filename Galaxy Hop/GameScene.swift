@@ -38,7 +38,10 @@ class GameScene: SKScene {
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
         if currX <= 287 && currX >= 37 && currY <= 40 && currY >= -210 {
-            print("hit achievements button")
+            print("hit stats button")
+            let sceneTwo = Stats(fileNamed: "Stats")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
         if currX <= 186 && currX >= -64 && currY <= -230 && currY >= -480 {
             print("hit settings button")
