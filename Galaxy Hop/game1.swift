@@ -21,16 +21,30 @@ class game1: SKScene, SKPhysicsContactDelegate {
         self.score = self.childNode(withName: "score") as? SKLabelNode
         self.player = self.childNode(withName: "player") as? SKSpriteNode
         self.player.texture = SKTexture(imageNamed: "character.png")
-        self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:173, height:120))
+        self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:173, height:60))
         self.player.physicsBody?.isDynamic = true
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.restitution = 1
         self.player.physicsBody?.linearDamping = 0.01
+        self.player.physicsBody?.friction = 0
+        
         self.platform = self.childNode(withName: "platform") as? SKSpriteNode
         self.platform.texture = SKTexture(imageNamed: "platform.png")
-        self.platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 300, height: 20))
+        self.platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 150, height: 10))
         self.platform.physicsBody?.isDynamic = false
         self.platform.physicsBody?.affectedByGravity = false
+        
+        enumerateChildNodes(withName: "platform"){
+            (node,stop) in
+            let platform = node as! SKSpriteNode
+            platform.texture = SKTexture(imageNamed: "platform.png")
+            platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 150, height: 10))
+            platform.physicsBody?.isDynamic = false
+            platform.physicsBody?.affectedByGravity = false
+            platform.physicsBody?.friction = 0
+        }
+        
+        
         physicsWorld.contactDelegate = self
         self.player.physicsBody?.contactTestBitMask = self.player.physicsBody?.collisionBitMask ?? 0
         
@@ -43,10 +57,21 @@ class game1: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
         //spawnAtRandomPosition()
         landingCheck()
+        if let body = self.player.physicsBody {
+            let dy = body.velocity.dy
+            if dy > 0 {
+                // Prevent collisions if the hero is jumping
+                body.collisionBitMask &= ~self.platform.physicsBody!.collisionBitMask
+            }
+            else {
+                // Allow collisions if the hero is falling
+                body.collisionBitMask |= self.platform.physicsBody!.collisionBitMask
+            }
+        }
         let currV = self.player.physicsBody?.velocity.dy
         print(currV!.description)
         if let accelerometerData = motionManager.accelerometerData{
-            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 500), dy: 0))
+            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 750), dy: 0))
         }
     }
     func velocityCheck(){
@@ -56,11 +81,14 @@ class game1: SKScene, SKPhysicsContactDelegate {
         print("contact did begin")
         guard let nodeA = contact.bodyA.node else {return}
         guard let nodeB = contact.bodyB.node else{return}
+        let currV = self.player.physicsBody!.velocity.dy
+        print("the velocity when currV was set:")
+        print(currV.description)
         
-        if nodeA.name == "player"{
+        if nodeA.name == "player" && currV > 0{
             collisionBetween(player: self.player, object: nodeB)
         }
-        else{
+        else if nodeB.name == "player" && currV > 0{
             collisionBetween(player: self.player, object: nodeA)
         }
         
@@ -71,6 +99,9 @@ class game1: SKScene, SKPhysicsContactDelegate {
             var currScore = Int(self.score.text!)!
             currScore += 1
             self.score.text = String(currScore)
+            self.player.physicsBody?.velocity.dy = 0
+            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
+            print("force applied")
         }
     }
     func spawnAtRandomPosition() {
