@@ -29,7 +29,7 @@ class Stats : SKScene {
         let currX = pos.x
         let currY = pos.y
         if currX <= 274 && currX >= 58 && currY <= -382 && currY >= -598 {
-           print("hit menu button")
+           print("return to menu")
             let sceneTwo = GameScene(fileNamed: "GameScene")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))

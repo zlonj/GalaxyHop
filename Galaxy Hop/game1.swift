@@ -71,7 +71,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let currV = self.player.physicsBody?.velocity.dy
         print(currV!.description)
         if let accelerometerData = motionManager.accelerometerData{
-            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 750), dy: 0))
+            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2800), dy: 0))
         }
     }
     func velocityCheck(){
