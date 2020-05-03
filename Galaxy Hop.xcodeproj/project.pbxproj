@@ -23,6 +23,8 @@
 		E49AE3C12449190F00632A45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E49AE3BF2449190F00632A45 /* LaunchScreen.storyboard */; };
 		E49AE3CC2449190F00632A45 /* Galaxy_HopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49AE3CB2449190F00632A45 /* Galaxy_HopTests.swift */; };
 		E49AE3D72449190F00632A45 /* Galaxy_HopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49AE3D62449190F00632A45 /* Galaxy_HopUITests.swift */; };
+		E4DADA19245F4AAA00AB84F3 /* game2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DADA18245F4AAA00AB84F3 /* game2.swift */; };
+		E4DADA1B245F4AE900AB84F3 /* game2.sks in Resources */ = {isa = PBXBuildFile; fileRef = E4DADA1A245F4AE900AB84F3 /* game2.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		E49AE3D22449190F00632A45 /* Galaxy HopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Galaxy HopUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E49AE3D62449190F00632A45 /* Galaxy_HopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Galaxy_HopUITests.swift; sourceTree = "<group>"; };
 		E49AE3D82449190F00632A45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4DADA18245F4AAA00AB84F3 /* game2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = game2.swift; sourceTree = "<group>"; };
+		E4DADA1A245F4AE900AB84F3 /* game2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = game2.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 				31CCACBB245DEA2C00DC9A0D /* Stats.swift */,
 				3171CCC5245E77F800C5CD7C /* GameOver.sks */,
 				3171CCC7245E7B4900C5CD7C /* GameOver.swift */,
+				E4DADA1A245F4AE900AB84F3 /* game2.sks */,
+				E4DADA18245F4AAA00AB84F3 /* game2.swift */,
 			);
 			path = "Galaxy Hop";
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E49AE3BC2449190D00632A45 /* Main.storyboard in Resources */,
+				E4DADA1B245F4AE900AB84F3 /* game2.sks in Resources */,
 				3171CCC6245E77F800C5CD7C /* GameOver.sks in Resources */,
 				E48A1F7F24551D08006CA526 /* game1.sks in Resources */,
 				317D1EAB245DE22C00D1D552 /* Stats.sks in Resources */,
@@ -288,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DADA19245F4AAA00AB84F3 /* game2.swift in Sources */,
 				E49AE3B72449190D00632A45 /* GameScene.swift in Sources */,
 				31CCACBC245DEA2C00DC9A0D /* Stats.swift in Sources */,
 				E49AE3B92449190D00632A45 /* GameViewController.swift in Sources */,
