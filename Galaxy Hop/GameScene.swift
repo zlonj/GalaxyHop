@@ -9,10 +9,11 @@
 import SpriteKit
 import GameplayKit
 
-struct GlobVariables {
-    static var heighestScore = 0;
-    static var playtingTime = 0;
-    static var gamesPlayed = 0;
+struct StatsVars {
+    static var heighestScore : Int = 0;
+    static var lastScore : Int = 0;
+    static var totalScore : Int = 0;
+    static var gamesPlayed : Int = 0;
 }
 
 class GameScene: SKScene {

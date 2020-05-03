@@ -12,19 +12,22 @@ class GameOver : SKScene {
     
     private var Score : SKLabelNode!
     private var HighestScore: SKLabelNode!
-    private var PlayingTime: SKLabelNode!
-    private var HighestTime : SKLabelNode!
     
     override func sceneDidLoad() {
         self.Score = self.childNode(withName: "Score") as? SKLabelNode
-        self.HighestTime = self.childNode(withName: "HighestScore") as? SKLabelNode
-        self.PlayingTime = self.childNode(withName: "PlayingTime") as? SKLabelNode
-        self.HighestTime = self.childNode(withName: "HighestTime") as? SKLabelNode
+        self.HighestScore = self.childNode(withName: "HighestScore") as? SKLabelNode
         Score.text = String(gameOverData.score);
-        if (gameOverData.score > GlobVariables.heighestScore) {
-            GlobVariables.heighestScore = gameOverData.score
+        // update vars
+        if (gameOverData.score < StatsVars.heighestScore) {
+            self.HighestScore.text = String(StatsVars.heighestScore)
+        } else {
+            StatsVars.heighestScore = gameOverData.score
+            self.HighestScore.text = String(gameOverData.score)
         }
-        // need to update other data
+        StatsVars.gamesPlayed += 1
+        StatsVars.lastScore = gameOverData.score
+        StatsVars.totalScore += gameOverData.score
+       
     }
     
     func touchDown(atPoint pos : CGPoint) {
@@ -45,9 +48,6 @@ class GameOver : SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        if let label = self.label {
-//            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-//        }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     

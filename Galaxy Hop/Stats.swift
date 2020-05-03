@@ -10,14 +10,23 @@ import SpriteKit
 
 class Stats : SKScene {
     
-    private var label : SKLabelNode?
     private var player : SKSpriteNode?
     private var highestScore : SKLabelNode?
+    private var lastScore : SKLabelNode?
+    private var averageScore : SKLabelNode?
     
     override func sceneDidLoad() {
         self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode
-        if String(GlobVariables.heighestScore) > (highestScore?.text)! {
-            highestScore?.text = String(GlobVariables.heighestScore)
+        self.lastScore = self.childNode(withName: "lastScore") as? SKLabelNode
+        self.averageScore = self.childNode(withName: "averageScore") as? SKLabelNode
+        if String(StatsVars.heighestScore) > (highestScore?.text)! {
+            highestScore?.text = String(StatsVars.heighestScore)
+        }
+        self.lastScore?.text = String(StatsVars.lastScore)
+        if StatsVars.gamesPlayed == 0 {
+            self.averageScore?.text = "0"
+        } else {
+            self.averageScore?.text = String(StatsVars.totalScore / StatsVars.gamesPlayed)
         }
     }
     
@@ -45,9 +54,6 @@ class Stats : SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
