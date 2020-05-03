@@ -12,6 +12,14 @@ class Stats : SKScene {
     
     private var label : SKLabelNode?
     private var player : SKSpriteNode?
+    private var highestScore : SKLabelNode?
+    
+    override func sceneDidLoad() {
+        self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode
+        if String(GlobVariables.heighestScore) > (highestScore?.text)! {
+            highestScore?.text = String(GlobVariables.heighestScore)
+        }
+    }
     
     override func didMove(to view: SKView) {
         self.player = self.childNode(withName: "playerWing") as? SKSpriteNode

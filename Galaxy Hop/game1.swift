@@ -10,6 +10,10 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
+// shared struct between game1 and GameOver
+struct gameOverData {
+    static var score = 0;
+}
 
 class game1: SKScene, SKPhysicsContactDelegate {
     private var player : SKSpriteNode!
@@ -71,7 +75,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let currV = self.player.physicsBody?.velocity.dy
         print(currV!.description)
         if let accelerometerData = motionManager.accelerometerData{
-            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2800), dy: 0))
+            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
         }
     }
     func velocityCheck(){
@@ -98,6 +102,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         if object.name == "platform"{
             var currScore = Int(self.score.text!)!
             currScore += 1
+            gameOverData.score = currScore;
             self.score.text = String(currScore)
             self.player.physicsBody?.velocity.dy = 0
             self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
@@ -121,6 +126,10 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let playerH = self.frame.height
         if currY <= (-1 * playerH + 173){
             print("fell off")
+            // jump to GameOver
+            let sceneTwo = GameOver(fileNamed: "GameOver")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
     }
 }

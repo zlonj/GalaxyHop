@@ -9,6 +9,12 @@
 import SpriteKit
 import GameplayKit
 
+struct GlobVariables {
+    static var heighestScore = 0;
+    static var playtingTime = 0;
+    static var gamesPlayed = 0;
+}
+
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
