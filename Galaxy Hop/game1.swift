@@ -62,7 +62,8 @@ class game1: SKScene, SKPhysicsContactDelegate {
         //spawnAtRandomPosition()
         landingCheck()
         boundCheck()
-        //hitTop()
+        // hit top and refresh play screen
+        hitTop()
         if let body = self.player.physicsBody {
             let dy = body.velocity.dy
             if dy > 0 {
@@ -79,10 +80,9 @@ class game1: SKScene, SKPhysicsContactDelegate {
         if let accelerometerData = motionManager.accelerometerData{
             self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
         }
-        
+        // platform falls after reaching certain height
         let currY = self.player.position.y
-                if currY > 0{
-        //            self.player.position.y = (-1 * currY) + 160
+                if currY > -5 {
                     self.player.position.y -= 5
                 
                     enumerateChildNodes(withName: "platform"){
@@ -93,8 +93,6 @@ class game1: SKScene, SKPhysicsContactDelegate {
                             node.position.x = randomX
                             node.position.y = 667 - (-667 - node.position.y)
                         }
-        //                let randomX = CGFloat.random(in: -250..<251)
-        //                node.position.x = randomX
                     }
                 }
         
@@ -156,30 +154,23 @@ class game1: SKScene, SKPhysicsContactDelegate {
     
     func boundCheck() {
         let currX = self.player.position.x
-        if currX > 380 {
+        if currX > 370 {
             self.player.position.x = currX - 750
         }
-        if currX < -380 {
+        if currX < -370 {
             self.player.position.x = currX + 750
         }
     }
     
     func hitTop(){
         let currY = self.player.position.y
-        if currY > 0{
-//            self.player.position.y = (-1 * currY) + 160
-            self.player.position.y -= 320
-        
+        if currY > 640{
+            self.player.position.y = (-1 * currY) + 160
+
             enumerateChildNodes(withName: "platform"){
                 (node,stop) in
-                node.position.y = node.position.y - 320
-                if (node.position.y < -667) {
-                    let randomX = CGFloat.random(in: -250..<251)
-                    node.position.x = randomX
-                    node.position.y = 667 - (-667 - node.position.y)
-                }
-//                let randomX = CGFloat.random(in: -250..<251)
-//                node.position.x = randomX
+                let randomX = CGFloat.random(in: -250..<251)
+                node.position.x = randomX
             }
         }
     }
