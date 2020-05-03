@@ -25,7 +25,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         self.score = self.childNode(withName: "score") as? SKLabelNode
         self.player = self.childNode(withName: "player") as? SKSpriteNode
         self.player.texture = SKTexture(imageNamed: "character.png")
-        self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:173, height:60))
+        self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:88, height:60))
         self.player.physicsBody?.isDynamic = true
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.restitution = 1
@@ -34,7 +34,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         
         self.platform = self.childNode(withName: "platform") as? SKSpriteNode
         self.platform.texture = SKTexture(imageNamed: "platform.png")
-        self.platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 150, height: 10))
+        self.platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 140, height: 10))
         self.platform.physicsBody?.isDynamic = false
         self.platform.physicsBody?.affectedByGravity = false
         
@@ -42,7 +42,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
             (node,stop) in
             let platform = node as! SKSpriteNode
             platform.texture = SKTexture(imageNamed: "platform.png")
-            platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 150, height: 10))
+            platform.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 140, height: 10))
             platform.physicsBody?.isDynamic = false
             platform.physicsBody?.affectedByGravity = false
             platform.physicsBody?.friction = 0
@@ -62,6 +62,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         //spawnAtRandomPosition()
         landingCheck()
         boundCheck()
+        hitTop()
         if let body = self.player.physicsBody {
             let dy = body.velocity.dy
             if dy > 0 {
@@ -106,7 +107,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
             gameOverData.score = currScore;
             self.score.text = String(currScore)
             self.player.physicsBody?.velocity.dy = 0
-            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
+            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 220))
             print("force applied")
         }
     }
@@ -135,13 +136,25 @@ class game1: SKScene, SKPhysicsContactDelegate {
     }
     
     func boundCheck() {
-        
         let currX = self.player.position.x
         if currX > 410 {
             self.player.position.x = currX - 750
         }
         if currX < -410 {
             self.player.position.x = currX + 750
+        }
+    }
+    
+    func hitTop(){
+        let currY = self.player.position.y
+        if currY > 640{
+            self.player.position.y = (-1 * currY) + 160
+        
+            enumerateChildNodes(withName: "platform"){
+                (node,stop) in
+                let randomX = CGFloat.random(in: -250..<251)
+                node.position.x = randomX
+            }
         }
     }
 }
