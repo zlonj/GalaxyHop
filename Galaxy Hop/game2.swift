@@ -28,7 +28,9 @@ class game2: SKScene, SKPhysicsContactDelegate {
             let comet = node as! SKSpriteNode
             comet.texture = SKTexture(imageNamed: "comet.png")
             comet.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 110, height: 110))
-            comet.physicsBody?.isDynamic = false
+            comet.physicsBody?.isDynamic = true
+            comet.physicsBody?.affectedByGravity = true
+            comet.physicsBody?.linearDamping = 2.5
         }
         
         physicsWorld.contactDelegate = self
@@ -60,22 +62,26 @@ class game2: SKScene, SKPhysicsContactDelegate {
         }
     }
     func collisionBetween(player: SKNode, object: SKNode){
-        let sceneTwo = GameOver(fileNamed: "GameOver")
-        sceneTwo?.scaleMode = .aspectFill
-        self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        if object.name == "comet"{
+            let sceneTwo = GameOver(fileNamed: "GameOver")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        }
     }
     func checkBounds(){
         let currX = self.player.position.x
-         if currX > 410 {
-             self.player.position.x = currX - 750
+         if currX > 310 {
+             self.player.position.x = 310
          }
-         if currX < -410 {
-             self.player.position.x = currX + 750
+         if currX < -310 {
+             self.player.position.x = -310
          }
         enumerateChildNodes(withName: "comet"){
         (node,stop) in
             if node.position.y < -670 {
-                node.position.y += 900
+                node.position.y += 3200
+                let randomX = CGFloat.random(in: -250..<251)
+                node.position.x = randomX
             }
         }
     }

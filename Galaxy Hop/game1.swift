@@ -64,6 +64,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         boundCheck()
         // hit top and refresh play screen
         hitTop()
+        scoreCheck()
         if let body = self.player.physicsBody {
             let dy = body.velocity.dy
             if dy > 0 {
@@ -97,8 +98,13 @@ class game1: SKScene, SKPhysicsContactDelegate {
                 }
         
     }
-    func velocityCheck(){
-        self.player.physicsBody?.velocity.dy *= CGFloat(0.99)
+    func scoreCheck(){
+        let currScore = Int(self.score.text!)!
+        if currScore >= 1 && currScore % 1 == 0{
+            let sceneTwo = game2(fileNamed: "game2")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        }
     }
     func didBegin(_ contact: SKPhysicsContact) {
         print("contact did begin")
