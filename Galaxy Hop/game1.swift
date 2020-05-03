@@ -137,23 +137,30 @@ class game1: SKScene, SKPhysicsContactDelegate {
     
     func boundCheck() {
         let currX = self.player.position.x
-        if currX > 410 {
+        if currX > 380 {
             self.player.position.x = currX - 750
         }
-        if currX < -410 {
+        if currX < -380 {
             self.player.position.x = currX + 750
         }
     }
     
     func hitTop(){
         let currY = self.player.position.y
-        if currY > 640{
-            self.player.position.y = (-1 * currY) + 160
+        if currY > 0{
+//            self.player.position.y = (-1 * currY) + 160
+            self.player.position.y -= 320
         
             enumerateChildNodes(withName: "platform"){
                 (node,stop) in
-                let randomX = CGFloat.random(in: -250..<251)
-                node.position.x = randomX
+                node.position.y = node.position.y - 320
+                if (node.position.y < -667) {
+                    let randomX = CGFloat.random(in: -250..<251)
+                    node.position.x = randomX
+                    node.position.y = 667 - (-667 - node.position.y)
+                }
+//                let randomX = CGFloat.random(in: -250..<251)
+//                node.position.x = randomX
             }
         }
     }
