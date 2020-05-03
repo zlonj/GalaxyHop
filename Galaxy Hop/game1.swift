@@ -62,7 +62,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         //spawnAtRandomPosition()
         landingCheck()
         boundCheck()
-        hitTop()
+        //hitTop()
         if let body = self.player.physicsBody {
             let dy = body.velocity.dy
             if dy > 0 {
@@ -79,6 +79,25 @@ class game1: SKScene, SKPhysicsContactDelegate {
         if let accelerometerData = motionManager.accelerometerData{
             self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
         }
+        
+        let currY = self.player.position.y
+                if currY > 0{
+        //            self.player.position.y = (-1 * currY) + 160
+                    self.player.position.y -= 5
+                
+                    enumerateChildNodes(withName: "platform"){
+                        (node,stop) in
+                        node.position.y = node.position.y - 5
+                        if (node.position.y < -667) {
+                            let randomX = CGFloat.random(in: -250..<251)
+                            node.position.x = randomX
+                            node.position.y = 667 - (-667 - node.position.y)
+                        }
+        //                let randomX = CGFloat.random(in: -250..<251)
+        //                node.position.x = randomX
+                    }
+                }
+        
     }
     func velocityCheck(){
         self.player.physicsBody?.velocity.dy *= CGFloat(0.99)
