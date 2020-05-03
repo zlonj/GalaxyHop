@@ -36,6 +36,12 @@ class GameOver : SKScene {
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
+        if currX <= -63.5 && currX >= -298.85 && currY <= -362.5 && currY >= -597.5 {
+           print("play again")
+            let sceneTwo = game1(fileNamed: "game1")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -61,6 +61,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
         //spawnAtRandomPosition()
         landingCheck()
+        boundCheck()
         if let body = self.player.physicsBody {
             let dy = body.velocity.dy
             if dy > 0 {
@@ -130,6 +131,17 @@ class game1: SKScene, SKPhysicsContactDelegate {
             let sceneTwo = GameOver(fileNamed: "GameOver")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        }
+    }
+    
+    func boundCheck() {
+        
+        let currX = self.player.position.x
+        if currX > 410 {
+            self.player.position.x = currX - 750
+        }
+        if currX < -410 {
+            self.player.position.x = currX + 750
         }
     }
 }
