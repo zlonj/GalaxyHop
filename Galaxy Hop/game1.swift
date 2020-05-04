@@ -23,6 +23,8 @@ struct pauseData {
     static var charPostion : CGPoint = CGPoint.init()
 }
 
+
+
 class game1: SKScene, SKPhysicsContactDelegate {
     private var player : SKSpriteNode!
     private var platform: SKSpriteNode!
@@ -103,6 +105,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         if let accelerometerData = motionManager.accelerometerData{
             self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
         }
+        
         // platform falls when reaching certain height
         let currY = self.player.position.y
         if currY > -5 {
@@ -124,7 +127,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
     // when reaching certain score, transition to survival mode
     func scoreCheck(){
         let currScore = Int(self.score.text!)!
-        if currScore >= 10 && currScore % 10 == 0{
+        if currScore >= 30 && currScore % 30 == 0{
             // store positions and score
             var i : Int = 0
             enumerateChildNodes(withName: "platform"){
@@ -190,7 +193,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let playerH = self.frame.height
         if currY <= (-1 * playerH + 173){
             print("fell off")
-            // jump to GameOver
+            // jump to GameOver Scene
             let sceneTwo = GameOver(fileNamed: "GameOver")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
@@ -221,16 +224,17 @@ class game1: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
+    // check if the player hits pause button
     func touchDown(atPoint pos : CGPoint) {
         let currX = pos.x
         let currY = pos.y
+        // hit pause button
         if currX <= -205 && currX >= -319 && currY <= 633 && currY >= 519 {
             print("hit pause button")
-            // store positions
+            // store positions and score, set valid to true
             var i : Int = 0
             enumerateChildNodes(withName: "platform"){
                 (node,stop) in
