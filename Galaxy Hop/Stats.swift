@@ -19,8 +19,8 @@ class Stats : SKScene {
         self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode
         self.lastScore = self.childNode(withName: "lastScore") as? SKLabelNode
         self.averageScore = self.childNode(withName: "averageScore") as? SKLabelNode
-        if String(StatsVars.heighestScore) > (highestScore?.text)! {
-            highestScore?.text = String(StatsVars.heighestScore)
+        if String(StatsVars.highestScore) > (highestScore?.text)! {
+            highestScore?.text = String(StatsVars.highestScore)
         }
         self.lastScore?.text = String(StatsVars.lastScore)
         if StatsVars.gamesPlayed == 0 {

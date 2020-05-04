@@ -48,13 +48,13 @@ class game2: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func timerAction(){
-        print(count)
         count += 1
         if count == 15 {
             print("back to game1")
             let sceneTwo = game1(fileNamed: "game1")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+            timer.invalidate()
         }
     }
     

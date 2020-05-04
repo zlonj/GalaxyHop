@@ -17,7 +17,7 @@ class pause : SKScene {
         self.score = self.childNode(withName: "score") as? SKLabelNode
         self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode
         self.score.text = String(pauseData.score)
-        self.highestScore.text = String(StatsVars.heighestScore)
+        self.highestScore.text = String(StatsVars.highestScore)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

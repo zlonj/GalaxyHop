@@ -17,17 +17,23 @@ class GameOver : SKScene {
         self.Score = self.childNode(withName: "Score") as? SKLabelNode
         self.HighestScore = self.childNode(withName: "HighestScore") as? SKLabelNode
         Score.text = String(gameOverData.score);
-        // update vars
-        if (gameOverData.score < StatsVars.heighestScore) {
-            self.HighestScore.text = String(StatsVars.heighestScore)
+        // update vars, such as highestScore, lastScore, gamesPlayed, totalScore
+        if (gameOverData.score < StatsVars.highestScore) {
+            self.HighestScore.text = String(StatsVars.highestScore)
         } else {
-            StatsVars.heighestScore = gameOverData.score
+            StatsVars.highestScore = gameOverData.score
             self.HighestScore.text = String(gameOverData.score)
         }
         StatsVars.gamesPlayed += 1
         StatsVars.lastScore = gameOverData.score
         StatsVars.totalScore += gameOverData.score
-       
+        pauseData.valid = false
+        
+        // store StatsVars into NSUserDefaults
+        UserDefaults.standard.set(StatsVars.highestScore, forKey: "highestScore")
+        UserDefaults.standard.set(StatsVars.lastScore, forKey: "lastScore")
+        UserDefaults.standard.set(StatsVars.totalScore, forKey: "totalScore")
+        UserDefaults.standard.set(StatsVars.gamesPlayed, forKey: "gamesPlayed")
     }
     
     func touchDown(atPoint pos : CGPoint) {

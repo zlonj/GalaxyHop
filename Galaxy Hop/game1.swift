@@ -73,7 +73,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
                 node.position = pauseData.platformPostions[i]
                 i += 1
             }
-            self.player.position = CGPoint.init(x: pauseData.charPostion.x, y: pauseData.charPostion.y + 5)
+            self.player.position = CGPoint.init(x: pauseData.charPostion.x, y: pauseData.charPostion.y + 10)
             self.score.text = String(pauseData.score + 1)
             pauseData.valid = false
         }
