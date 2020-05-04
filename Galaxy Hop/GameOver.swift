@@ -12,6 +12,7 @@ class GameOver : SKScene {
     
     private var Score : SKLabelNode!
     private var HighestScore: SKLabelNode!
+    private var player : SKSpriteNode?
     
     override func sceneDidLoad() {
         self.Score = self.childNode(withName: "Score") as? SKLabelNode
@@ -34,6 +35,18 @@ class GameOver : SKScene {
         UserDefaults.standard.set(StatsVars.lastScore, forKey: "lastScore")
         UserDefaults.standard.set(StatsVars.totalScore, forKey: "totalScore")
         UserDefaults.standard.set(StatsVars.gamesPlayed, forKey: "gamesPlayed")
+    }
+    
+    override func didMove(to view: SKView) {
+        self.player = self.childNode(withName: "playerWing") as? SKSpriteNode
+        let dX = 0
+        let dY = 100
+        let moveActionUp = SKAction.moveBy(x: CGFloat(dX), y: CGFloat(dY), duration: 1.0)
+        let moveActionDown = SKAction.moveBy(x: CGFloat(dX), y: CGFloat(-100), duration: 1.0)
+        let sequence = SKAction.sequence([moveActionUp, moveActionDown]);
+        let bounce = SKAction.repeatForever(sequence);
+        player!.run(bounce)
+
     }
     
     func touchDown(atPoint pos : CGPoint) {

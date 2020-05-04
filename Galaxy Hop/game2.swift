@@ -15,9 +15,11 @@ class game2: SKScene, SKPhysicsContactDelegate {
     private var player: SKSpriteNode!
     var motionManager: CMMotionManager!
     private var timer = Timer()
-    private var count = 0
+    private var count = 16
+    private var time : SKLabelNode!
     
     override func didMove(to view: SKView) {
+        self.time = self.childNode(withName: "time") as? SKLabelNode
         self.player = self.childNode(withName: "player") as? SKSpriteNode
         self.player.texture = SKTexture(imageNamed: "characterWing.png")
         self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width:88, height:60))
@@ -48,8 +50,9 @@ class game2: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func timerAction(){
-        count += 1
-        if count == 15 {
+        count -= 1
+        time.text = String(count)
+        if count == 0 {
             print("back to game1")
             let sceneTwo = game1(fileNamed: "game1")
             sceneTwo?.scaleMode = .aspectFill

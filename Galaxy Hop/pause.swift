@@ -12,6 +12,7 @@ class pause : SKScene {
     
     private var score : SKLabelNode!
     private var highestScore: SKLabelNode!
+    private var player : SKSpriteNode?
     
     override func sceneDidLoad() {
         self.score = self.childNode(withName: "score") as? SKLabelNode
@@ -22,6 +23,18 @@ class pause : SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+    }
+    
+    override func didMove(to view: SKView) {
+        self.player = self.childNode(withName: "playerWing") as? SKSpriteNode
+        let dX = 0
+        let dY = 100
+        let moveActionUp = SKAction.moveBy(x: CGFloat(dX), y: CGFloat(dY), duration: 1.0)
+        let moveActionDown = SKAction.moveBy(x: CGFloat(dX), y: CGFloat(-100), duration: 1.0)
+        let sequence = SKAction.sequence([moveActionUp, moveActionDown]);
+        let bounce = SKAction.repeatForever(sequence);
+        player!.run(bounce)
+
     }
     
     func touchDown(atPoint pos : CGPoint) {
