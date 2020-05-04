@@ -65,7 +65,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
         
-        // restore positions and score from pause
+        // restore positions and score from pause or survival mode
         if pauseData.valid {
             var i = 0
             enumerateChildNodes(withName: "platform"){
@@ -73,11 +73,12 @@ class game1: SKScene, SKPhysicsContactDelegate {
                 node.position = pauseData.platformPostions[i]
                 i += 1
             }
-            self.player.position = pauseData.charPostion
-            self.score.text = String(pauseData.score)
+            self.player.position = CGPoint.init(x: pauseData.charPostion.x, y: pauseData.charPostion.y + 5)
+            self.score.text = String(pauseData.score + 1)
             pauseData.valid = false
         }
     }
+    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         //spawnAtRandomPosition()
@@ -119,14 +120,28 @@ class game1: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
+    // when reaching certain score, transition to survival mode
     func scoreCheck(){
         let currScore = Int(self.score.text!)!
-        if currScore >= 50 && currScore % 50 == 0{
+        if currScore >= 10 && currScore % 10 == 0{
+            // store positions and score
+            var i : Int = 0
+            enumerateChildNodes(withName: "platform"){
+                (node,stop) in
+                pauseData.platformPostions[i] = node.position
+                i += 1
+            }
+            pauseData.valid = true
+            pauseData.score = Int(self.score.text!)!
+            pauseData.charPostion = player.position
+            
             let sceneTwo = game2(fileNamed: "game2")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
     }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         print("contact did begin")
         guard let nodeA = contact.bodyA.node else {return}
@@ -143,6 +158,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
     func collisionBetween(player: SKNode, object: SKNode){
         print("landed")
         if object.name == "platform"{
@@ -155,6 +171,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
             print("force applied")
         }
     }
+    
     func spawnAtRandomPosition() {
         let height = UInt32(self.size.height)
         let width = UInt32(self.size.width)
@@ -167,6 +184,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         sprite.size = newSize
         self.addChild(sprite)
     }
+    
     func landingCheck() {
         let currY = self.player.position.y
         let playerH = self.frame.height

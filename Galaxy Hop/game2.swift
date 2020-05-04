@@ -14,6 +14,8 @@ import CoreMotion
 class game2: SKScene, SKPhysicsContactDelegate {
     private var player: SKSpriteNode!
     var motionManager: CMMotionManager!
+    private var timer = Timer()
+    private var count = 0
     
     override func didMove(to view: SKView) {
         self.player = self.childNode(withName: "player") as? SKSpriteNode
@@ -40,6 +42,20 @@ class game2: SKScene, SKPhysicsContactDelegate {
         //tilt stuff
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
+        
+        // timer
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    @objc func timerAction(){
+        print(count)
+        count += 1
+        if count == 15 {
+            print("back to game1")
+            let sceneTwo = game1(fileNamed: "game1")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {

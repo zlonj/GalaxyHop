@@ -35,7 +35,7 @@ class pause : SKScene {
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
         if currX <= 278 && currX >= 32 && currY <= -357 && currY >= -603 {
-           print("resume play")
+            print("resume play")
             let sceneTwo = game1(fileNamed: "game1")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
