@@ -46,7 +46,7 @@ class game2: SKScene, SKPhysicsContactDelegate {
         checkBounds()
         
         if let accelerometerData = motionManager.accelerometerData{
-            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
+            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 3500), dy: 0))
         }
     }
     func didBegin(_ contact: SKPhysicsContact) {

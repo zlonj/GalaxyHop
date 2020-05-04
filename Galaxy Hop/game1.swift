@@ -10,9 +10,17 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
-// shared struct between game1 and GameOver
+// shared struct between game and GameOver
 struct gameOverData {
-    static var score = 0;
+    static var score = 0
+}
+
+// shared struct for pausing and transitioning
+struct pauseData {
+    static var valid : Bool = false
+    static var score : Int = 0;
+    static var platformPostions : [CGPoint] = [CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0)]
+    static var charPostion : CGPoint = CGPoint.init()
 }
 
 class game1: SKScene, SKPhysicsContactDelegate {
@@ -56,6 +64,19 @@ class game1: SKScene, SKPhysicsContactDelegate {
         //tilt stuff
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
+        
+        // restore positions and score from pause
+        if pauseData.valid {
+            var i = 0
+            enumerateChildNodes(withName: "platform"){
+                (node,stop) in
+                node.position = pauseData.platformPostions[i]
+                i += 1
+            }
+            self.player.position = pauseData.charPostion
+            self.score.text = String(pauseData.score)
+            pauseData.valid = false
+        }
     }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -81,26 +102,26 @@ class game1: SKScene, SKPhysicsContactDelegate {
         if let accelerometerData = motionManager.accelerometerData{
             self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
         }
-        // platform falls after reaching certain height
+        // platform falls when reaching certain height
         let currY = self.player.position.y
-                if currY > -5 {
-                    self.player.position.y -= 5
-                
-                    enumerateChildNodes(withName: "platform"){
-                        (node,stop) in
-                        node.position.y = node.position.y - 5
-                        if (node.position.y < -667) {
-                            let randomX = CGFloat.random(in: -250..<251)
-                            node.position.x = randomX
-                            node.position.y = 667 - (-667 - node.position.y)
-                        }
-                    }
+        if currY > -5 {
+            self.player.position.y -= 5
+            
+            enumerateChildNodes(withName: "platform"){
+                (node,stop) in
+                node.position.y = node.position.y - 5
+                if (node.position.y < -667) {
+                    let randomX = CGFloat.random(in: -250..<251)
+                    node.position.x = randomX
+                    node.position.y = 667 - (-667 - node.position.y)
                 }
+            }
+        }
         
     }
     func scoreCheck(){
         let currScore = Int(self.score.text!)!
-        if currScore >= 1 && currScore % 1 == 0{
+        if currScore >= 50 && currScore % 50 == 0{
             let sceneTwo = game2(fileNamed: "game2")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
@@ -137,9 +158,9 @@ class game1: SKScene, SKPhysicsContactDelegate {
     func spawnAtRandomPosition() {
         let height = UInt32(self.size.height)
         let width = UInt32(self.size.width)
-
+        
         let randomPosition = CGPoint(x: Int(arc4random_uniform(width)), y: Int(arc4random_uniform(height)))
-
+        
         let sprite = SKSpriteNode(imageNamed: "platform")
         sprite.position = randomPosition
         let newSize = CGSize(width: 300, height: 300)
@@ -172,12 +193,38 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let currY = self.player.position.y
         if currY > 640{
             self.player.position.y = (-1 * currY) + 160
-
+            
             enumerateChildNodes(withName: "platform"){
                 (node,stop) in
                 let randomX = CGFloat.random(in: -250..<251)
                 node.position.x = randomX
             }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+    }
+    
+    func touchDown(atPoint pos : CGPoint) {
+        let currX = pos.x
+        let currY = pos.y
+        if currX <= -205 && currX >= -319 && currY <= 633 && currY >= 519 {
+            print("hit pause button")
+            // store positions
+            var i : Int = 0
+            enumerateChildNodes(withName: "platform"){
+                (node,stop) in
+                pauseData.platformPostions[i] = node.position
+                i += 1
+            }
+            pauseData.valid = true
+            pauseData.score = Int(self.score.text!)!
+            pauseData.charPostion = player.position
+            let sceneTwo = pause(fileNamed: "pause")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
     }
 }
