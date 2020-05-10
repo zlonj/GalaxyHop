@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31133B08246791740043B6A7 /* bgm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31133B07246791740043B6A7 /* bgm1.mp3 */; };
+		31133B0A2467917A0043B6A7 /* bgm2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31133B092467917A0043B6A7 /* bgm2.mp3 */; };
 		3171CCC6245E77F800C5CD7C /* GameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3171CCC5245E77F800C5CD7C /* GameOver.sks */; };
 		3171CCC8245E7B4900C5CD7C /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171CCC7245E7B4900C5CD7C /* GameOver.swift */; };
 		317D1EAB245DE22C00D1D552 /* Stats.sks in Resources */ = {isa = PBXBuildFile; fileRef = 317D1EAA245DE22C00D1D552 /* Stats.sks */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		31133B07246791740043B6A7 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm1.mp3; sourceTree = "<group>"; };
+		31133B092467917A0043B6A7 /* bgm2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm2.mp3; sourceTree = "<group>"; };
 		3171CCC5245E77F800C5CD7C /* GameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOver.sks; sourceTree = "<group>"; };
 		3171CCC7245E7B4900C5CD7C /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		317D1EAA245DE22C00D1D552 /* Stats.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Stats.sks; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 				3171CCC7245E7B4900C5CD7C /* GameOver.swift */,
 				E4DADA1A245F4AE900AB84F3 /* game2.sks */,
 				E4DADA18245F4AAA00AB84F3 /* game2.swift */,
+				31133B07246791740043B6A7 /* bgm1.mp3 */,
+				31133B092467917A0043B6A7 /* bgm2.mp3 */,
 			);
 			path = "Galaxy Hop";
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			files = (
 				E49AE3BC2449190D00632A45 /* Main.storyboard in Resources */,
 				31E96661245F843E0030A587 /* game1.sks in Resources */,
+				31133B0A2467917A0043B6A7 /* bgm2.mp3 in Resources */,
 				E4DADA1B245F4AE900AB84F3 /* game2.sks in Resources */,
 				3171CCC6245E77F800C5CD7C /* GameOver.sks in Resources */,
 				317D1EAB245DE22C00D1D552 /* Stats.sks in Resources */,
@@ -277,6 +284,7 @@
 				31E96663245F8D0A0030A587 /* pause.sks in Resources */,
 				E49AE3BE2449190F00632A45 /* Assets.xcassets in Resources */,
 				E49AE3C12449190F00632A45 /* LaunchScreen.storyboard in Resources */,
+				31133B08246791740043B6A7 /* bgm1.mp3 in Resources */,
 				E49AE3B52449190D00632A45 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

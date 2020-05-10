@@ -31,12 +31,6 @@ class GameScene: SKScene {
         let sequence = SKAction.sequence([moveActionUp, moveActionDown]);
         let bounce = SKAction.repeatForever(sequence);
         player!.run(bounce)
-        
-        // retrieve StatsVars from NSUserDefaults
-        StatsVars.highestScore = UserDefaults.standard.integer(forKey: "highestScore")
-        StatsVars.lastScore = UserDefaults.standard.integer(forKey: "lastScore")
-        StatsVars.totalScore = UserDefaults.standard.integer(forKey: "totalScore")
-        StatsVars.gamesPlayed = UserDefaults.standard.integer(forKey: "gamesPlayed")
     }
     
     

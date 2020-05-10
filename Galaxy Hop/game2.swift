@@ -49,6 +49,18 @@ class game2: SKScene, SKPhysicsContactDelegate {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
     }
     
+    // play/stop background music accordingly
+    override func sceneDidLoad() {
+        let bgm2 = SKAudioNode(fileNamed: "bgm2.mp3")
+        self.addChild(bgm2)
+        
+        if Music.valid {
+            bgm2.run(SKAction.play())
+        } else {
+            bgm2.run(SKAction.stop());
+        }
+    }
+    
     @objc func timerAction(){
         count -= 1
         time.text = String(count)
@@ -58,6 +70,10 @@ class game2: SKScene, SKPhysicsContactDelegate {
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
             timer.invalidate()
+            
+            // bonus for surviving in game2
+            // extra 9 points
+            pauseData.score += 9
         }
     }
     

@@ -15,6 +15,11 @@ struct gameOverData {
     static var score = 0
 }
 
+// background music
+struct Music {
+    static var valid = true;
+}
+
 // shared struct for pausing and transitioning
 struct pauseData {
     static var valid : Bool = false
@@ -81,6 +86,19 @@ class game1: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
+    // play/stop background music accordingly
+    override func sceneDidLoad() {
+        let bgm1 = SKAudioNode(fileNamed: "bgm1.mp3")
+        self.addChild(bgm1)
+        
+        if Music.valid {
+            bgm1.run(SKAction.play())
+        } else {
+            bgm1.run(SKAction.stop());
+        }
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         //spawnAtRandomPosition()
@@ -103,7 +121,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         let currV = self.player.physicsBody?.velocity.dy
         print(currV!.description)
         if let accelerometerData = motionManager.accelerometerData{
-            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2300), dy: 0))
+            self.player.physicsBody?.applyForce(CGVector(dx:  CGFloat(accelerometerData.acceleration.x * 2000), dy: 0))
         }
         
         // platform falls when reaching certain height
@@ -127,7 +145,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
     // when reaching certain score, transition to survival mode
     func scoreCheck(){
         let currScore = Int(self.score.text!)!
-        if currScore >= 30 && currScore % 30 == 0{
+        if currScore >= 50 && currScore % 50  == 0{
             // store positions and score
             var i : Int = 0
             enumerateChildNodes(withName: "platform"){
