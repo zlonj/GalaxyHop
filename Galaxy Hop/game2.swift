@@ -15,7 +15,8 @@ class game2: SKScene, SKPhysicsContactDelegate {
     private var player: SKSpriteNode!
     var motionManager: CMMotionManager!
     private var timer = Timer()
-    private var count = 16
+    // every time entering game2, the count will increase by 5, to increase difficulty
+    private var count = 16 + (pauseData.score / pauseData.threshold - 1) * 5
     private var time : SKLabelNode!
     
     override func didMove(to view: SKView) {
@@ -51,13 +52,14 @@ class game2: SKScene, SKPhysicsContactDelegate {
     
     // play/stop background music accordingly
     override func sceneDidLoad() {
+        if Music.turnOff {
+            return
+        }
         let bgm2 = SKAudioNode(fileNamed: "bgm2.mp3")
         self.addChild(bgm2)
         
-        if Music.valid {
+        if !Music.turnOff {
             bgm2.run(SKAction.play())
-        } else {
-            bgm2.run(SKAction.stop());
         }
     }
     
@@ -66,14 +68,14 @@ class game2: SKScene, SKPhysicsContactDelegate {
         time.text = String(count)
         if count == 0 {
             print("back to game1")
+            
+            // bonus points for surviving
+            pauseData.score += pauseData.threshold / 10
+            
             let sceneTwo = game1(fileNamed: "game1")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
             timer.invalidate()
-            
-            // bonus for surviving in game2
-            // extra 9 points
-            pauseData.score += 9
         }
     }
     
@@ -105,14 +107,14 @@ class game2: SKScene, SKPhysicsContactDelegate {
     }
     func checkBounds(){
         let currX = self.player.position.x
-         if currX > 310 {
-             self.player.position.x = 310
-         }
-         if currX < -310 {
-             self.player.position.x = -310
-         }
+        if currX > 310 {
+            self.player.position.x = 310
+        }
+        if currX < -310 {
+            self.player.position.x = -310
+        }
         enumerateChildNodes(withName: "comet"){
-        (node,stop) in
+            (node,stop) in
             if node.position.y < -670 {
                 node.position.y += 3200
                 let randomX = CGFloat.random(in: -250..<251)

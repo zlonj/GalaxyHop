@@ -36,6 +36,7 @@ class GameViewController: UIViewController {
         StatsVars.lastScore = UserDefaults.standard.integer(forKey: "lastScore")
         StatsVars.totalScore = UserDefaults.standard.integer(forKey: "totalScore")
         StatsVars.gamesPlayed = UserDefaults.standard.integer(forKey: "gamesPlayed")
+        Music.turnOff = UserDefaults.standard.bool(forKey: "music")
         
     }
 

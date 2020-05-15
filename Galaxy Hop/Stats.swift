@@ -39,14 +39,14 @@ class Stats : SKScene {
         let sequence = SKAction.sequence([moveActionUp, moveActionDown]);
         let bounce = SKAction.repeatForever(sequence);
         player!.run(bounce)
-
+        
     }
     
     func touchDown(atPoint pos : CGPoint) {
         let currX = pos.x
         let currY = pos.y
         if currX <= 274 && currX >= 58 && currY <= -382 && currY >= -598 {
-           print("return to menu")
+            print("return to menu")
             let sceneTwo = GameScene(fileNamed: "GameScene")
             sceneTwo?.scaleMode = .aspectFill
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))

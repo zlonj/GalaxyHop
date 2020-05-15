@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310496D2246F22CC00AA3B24 /* settings.sks in Resources */ = {isa = PBXBuildFile; fileRef = 310496D1246F22CC00AA3B24 /* settings.sks */; };
+		310496D4246F246D00AA3B24 /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310496D3246F246D00AA3B24 /* settings.swift */; };
 		31133B08246791740043B6A7 /* bgm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31133B07246791740043B6A7 /* bgm1.mp3 */; };
 		31133B0A2467917A0043B6A7 /* bgm2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 31133B092467917A0043B6A7 /* bgm2.mp3 */; };
 		3171CCC6245E77F800C5CD7C /* GameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3171CCC5245E77F800C5CD7C /* GameOver.sks */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		310496D1246F22CC00AA3B24 /* settings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = settings.sks; sourceTree = "<group>"; };
+		310496D3246F246D00AA3B24 /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		31133B07246791740043B6A7 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm1.mp3; sourceTree = "<group>"; };
 		31133B092467917A0043B6A7 /* bgm2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm2.mp3; sourceTree = "<group>"; };
 		3171CCC5245E77F800C5CD7C /* GameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOver.sks; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				3171CCC7245E7B4900C5CD7C /* GameOver.swift */,
 				E4DADA1A245F4AE900AB84F3 /* game2.sks */,
 				E4DADA18245F4AAA00AB84F3 /* game2.swift */,
+				310496D1246F22CC00AA3B24 /* settings.sks */,
+				310496D3246F246D00AA3B24 /* settings.swift */,
 				31133B07246791740043B6A7 /* bgm1.mp3 */,
 				31133B092467917A0043B6A7 /* bgm2.mp3 */,
 			);
@@ -276,6 +282,7 @@
 			files = (
 				E49AE3BC2449190D00632A45 /* Main.storyboard in Resources */,
 				31E96661245F843E0030A587 /* game1.sks in Resources */,
+				310496D2246F22CC00AA3B24 /* settings.sks in Resources */,
 				31133B0A2467917A0043B6A7 /* bgm2.mp3 in Resources */,
 				E4DADA1B245F4AE900AB84F3 /* game2.sks in Resources */,
 				3171CCC6245E77F800C5CD7C /* GameOver.sks in Resources */,
@@ -315,6 +322,7 @@
 				31CCACBC245DEA2C00DC9A0D /* Stats.swift in Sources */,
 				E49AE3B92449190D00632A45 /* GameViewController.swift in Sources */,
 				31E96665245F90110030A587 /* pause.swift in Sources */,
+				310496D4246F246D00AA3B24 /* settings.swift in Sources */,
 				3171CCC8245E7B4900C5CD7C /* GameOver.swift in Sources */,
 				E49AE3B12449190D00632A45 /* AppDelegate.swift in Sources */,
 				E48A1F8124551D1C006CA526 /* game1.swift in Sources */,

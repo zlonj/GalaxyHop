@@ -17,7 +17,7 @@ struct gameOverData {
 
 // background music
 struct Music {
-    static var valid = true;
+    static var turnOff = true
 }
 
 // shared struct for pausing and transitioning
@@ -26,6 +26,7 @@ struct pauseData {
     static var score : Int = 0;
     static var platformPostions : [CGPoint] = [CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0)]
     static var charPostion : CGPoint = CGPoint.init()
+    static var threshold = 5
 }
 
 
@@ -89,13 +90,14 @@ class game1: SKScene, SKPhysicsContactDelegate {
     
     // play/stop background music accordingly
     override func sceneDidLoad() {
+        if Music.turnOff {
+            return
+        }
         let bgm1 = SKAudioNode(fileNamed: "bgm1.mp3")
         self.addChild(bgm1)
         
-        if Music.valid {
+        if !Music.turnOff {
             bgm1.run(SKAction.play())
-        } else {
-            bgm1.run(SKAction.stop());
         }
     }
     
@@ -145,7 +147,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
     // when reaching certain score, transition to survival mode
     func scoreCheck(){
         let currScore = Int(self.score.text!)!
-        if currScore >= 50 && currScore % 50  == 0{
+        if currScore >= pauseData.threshold && currScore % pauseData.threshold  == 0{
             // store positions and score
             var i : Int = 0
             enumerateChildNodes(withName: "platform"){

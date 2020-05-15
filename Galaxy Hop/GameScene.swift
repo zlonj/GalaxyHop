@@ -51,6 +51,9 @@ class GameScene: SKScene {
         }
         if currX <= 186 && currX >= -64 && currY <= -230 && currY >= -480 {
             print("hit settings button")
+            let sceneTwo = settings(fileNamed: "settings")
+            sceneTwo?.scaleMode = .aspectFill
+            self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
     }
     
