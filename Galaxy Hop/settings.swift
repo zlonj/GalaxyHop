@@ -24,6 +24,7 @@ class settings : SKScene {
         player!.run(bounce)
     }
     
+    // load correct text for button accordingly
     override func sceneDidLoad() {
         self.musicLabel = self.childNode(withName: "musicLabel") as? SKLabelNode
         if Music.turnOff {
@@ -33,6 +34,7 @@ class settings : SKScene {
         }
     }
     
+    // check which button is pressed
     func touchDown(atPoint pos : CGPoint) {
         let currX = pos.x
         let currY = pos.y
@@ -57,7 +59,7 @@ class settings : SKScene {
             StatsVars.highestScore = 0
             StatsVars.lastScore = 0
             StatsVars.totalScore  = 0
-            // store values
+            // store reset values
             UserDefaults.standard.set(StatsVars.highestScore, forKey: "highestScore")
             UserDefaults.standard.set(StatsVars.lastScore, forKey: "lastScore")
             UserDefaults.standard.set(StatsVars.totalScore, forKey: "totalScore")

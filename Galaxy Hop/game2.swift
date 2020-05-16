@@ -98,6 +98,8 @@ class game2: SKScene, SKPhysicsContactDelegate {
             collisionBetween(player: self.player, object: nodeA)
         }
     }
+    
+    // check if the character crashes the rock, present gameOver
     func collisionBetween(player: SKNode, object: SKNode){
         if object.name == "comet"{
             let sceneTwo = GameOver(fileNamed: "GameOver")
@@ -105,6 +107,7 @@ class game2: SKScene, SKPhysicsContactDelegate {
             self.view?.presentScene(sceneTwo!, transition: SKTransition.fade(withDuration: 1))
         }
     }
+    
     func checkBounds(){
         let currX = self.player.position.x
         if currX > 310 {

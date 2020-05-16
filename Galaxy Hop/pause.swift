@@ -14,6 +14,7 @@ class pause : SKScene {
     private var highestScore: SKLabelNode!
     private var player : SKSpriteNode?
     
+    // load data from the shared struct to labels
     override func sceneDidLoad() {
         self.score = self.childNode(withName: "score") as? SKLabelNode
         self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode

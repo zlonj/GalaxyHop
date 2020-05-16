@@ -15,6 +15,7 @@ class Stats : SKScene {
     private var lastScore : SKLabelNode?
     private var averageScore : SKLabelNode?
     
+    // load data from the shared struct to labels
     override func sceneDidLoad() {
         self.highestScore = self.childNode(withName: "highestScore") as? SKLabelNode
         self.lastScore = self.childNode(withName: "lastScore") as? SKLabelNode

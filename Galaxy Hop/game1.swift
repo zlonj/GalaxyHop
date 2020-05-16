@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
-// shared struct between game and GameOver
+// shared struct between games and GameOver
 struct gameOverData {
     static var score = 0
 }
@@ -26,7 +26,7 @@ struct pauseData {
     static var score : Int = 0;
     static var platformPostions : [CGPoint] = [CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0), CGPoint.init(x: 0, y: 0)]
     static var charPostion : CGPoint = CGPoint.init()
-    static var threshold = 5
+    static var threshold = 30
 }
 
 
@@ -182,6 +182,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // check landing on platforms
     func collisionBetween(player: SKNode, object: SKNode){
         print("landed")
         if object.name == "platform"{
@@ -208,6 +209,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         self.addChild(sprite)
     }
     
+    // check if the character falls below the screen, present gameOver
     func landingCheck() {
         let currY = self.player.position.y
         let playerH = self.frame.height
@@ -220,6 +222,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // check if the chatacter jumps out of the left/right bound
     func boundCheck() {
         let currX = self.player.position.x
         if currX > 370 {
@@ -230,6 +233,7 @@ class game1: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // refresh the page if the character jumps above the screen
     func hitTop(){
         let currY = self.player.position.y
         if currY > 640{
